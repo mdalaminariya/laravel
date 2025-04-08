@@ -12,10 +12,23 @@ Route::get('/',[FrontendController::class,'index'])->name('root');
 //dashboard
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//management
-Route::get('/management', [ManagementController::class, 'index'])->name('management.index');
-Route::post('/management/user/role', [ManagementController::class, 'store_register'])->name('management.store');
-Route::post('/management/manager/down/{id}', [ManagementController::class, 'manager_down'])->name('management.manager.down');
+Route::prefix(env('HOST_NAME'))->middleware(['rolecheck'])->group(function(){
+    //management
+    Route::get('/management', [ManagementController::class, 'index'])->name('management.index');
+    Route::post('/management/user/role', [ManagementController::class, 'store_register'])->name('management.store');
+    Route::post('/management/manager/down/{id}', [ManagementController::class, 'manager_down'])->name('management.manager.down');
+
+    //role
+    Route::get('/management/role', [ManagementController::class, 'role_index'])->name('management.role.index');
+    Route::post('/management/role/assign', [ManagementController::class, 'role_assign'])->name('management.role.assign');
+    Route::post('/management/role/blogger/{id}', [ManagementController::class, 'blogger_gread_down'])->name('management.role.blogger.demotion');
+    Route::post('/management/role/user/{id}', [ManagementController::class, 'user_gread_down'])->name('management.role.user.demotion');
+    Route::get('/management/role/user/block', [ManagementController::class, 'block_user'])->name('management.user.block');
+    Route::post('/management/role/user/Unblock/{id}', [ManagementController::class, 'unblock_user'])->name('management.user.unblock');
+    Route::post('/management/role/user/autodelete/{id}', [ManagementController::class, 'auto_delete'])->name('management.user.unblock');
+
+});
+
 
 
 //profile

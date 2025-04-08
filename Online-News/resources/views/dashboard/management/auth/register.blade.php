@@ -88,7 +88,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                         @foreach ($managers as $manager)
+                         @forelse ($managers as $manager)
                          <tr>
                             <th scope="row">
                                 {{ $loop->index +1 }}
@@ -112,7 +112,11 @@
                             </td>
                             @endif
                         </tr>
-                         @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-danger text-center">Please Insert Data.!</td>
+                        </tr>
+                         @endforelse
                         </tbody>
                     </table>
                 </div> <!-- end table-responsive-->

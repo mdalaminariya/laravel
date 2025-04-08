@@ -79,6 +79,16 @@
                                         <span class="menu-text">Assign Role & Permission</span>
                                     </a>
                                 </li>
+                                <li class="menu-item">
+                                    <a class='menu-link' href={{ route(name: 'management.role.index') }}>
+                                        <span class="menu-text">Assign Existing Role</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class='menu-link' href={{ route(name: 'management.user.block') }}>
+                                        <span class="menu-text">User Block Show</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>

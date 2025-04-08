@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class ManagementController extends Controller
 {
@@ -38,5 +40,71 @@ class ManagementController extends Controller
             ]);
             return back()->with('success','Manager Demotion Successfully..!');
         }
+    }
+
+    //role
+    public function role_index(){
+
+        $bloggers =  User::where('role','blogger')->get();
+        $users = User::where('role','user')->where('block',false)->get();
+        return view('dashboard.management.auth.role.index',[
+            'use' => $users,
+            'bloggers' => $bloggers,
+        ]);
+    }
+    public function role_assign(Request $request){
+        $request->validate([
+            'role' => 'required|in:user,blogger,manager',
+        ]);
+
+        $user = User::where('id',$request->user_id)->first();
+
+        User::find($user->id)->update([
+            'role' => $request->role,
+            'updated_at' => now()
+        ]);
+        Session::flash('success','Role Assign Successfully..!');
+        return back();
+
+    }
+
+    //blogger gread down
+    public function blogger_gread_down($id){
+        $user = User::where('id',$id)->first();
+        User::find($user->id)->update([
+            'role' => 'user',
+            'updated_at' => now()
+        ]);
+        Session::flash('success','Blogger De-motion Successfully..!');
+        return back();
+    }
+    public function user_gread_down($id){
+        $user = User::where('id',$id)->first();
+        User::find($user->id)->update([
+            'block' => true,
+            'updated_at' => now()
+        ]);
+        Session::flash('success','Block User Successfully..!');
+        return back();
+    }
+
+    //block user
+    public function block_user(){
+        $users = User::where('role','user')->where('block',true)->get();
+        return view('dashboard.management.auth.block.index',compact('users'));
+    }
+    public function unblock_user($id){
+        $user = User::where('id',$id)->first();
+        User::find($user->id)->update([
+            'block' => false,
+            'updated_at' => now()
+        ]);
+        Session::flash('success','UnBlock User Successfully..!');
+        return back();
+    }
+    public function auto_delete(){
+        $deleted = User::where('block', true)->where('updated_at', '<=', Carbon::now()->subDays(1))->delete();
+
+        $this->info("$deleted blocked users deleted.");
     }
 }
