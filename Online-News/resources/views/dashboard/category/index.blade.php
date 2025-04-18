@@ -1,7 +1,12 @@
 @extends('layouts.dashboardmaster')
 
+@section('title')
+    Category
+@endsection
+
 @section('content')
 
+<x-breadcum onlineNews="Category Show Page"></x-breadcum>
 
     <div class="row">
         {{-- category Show --}}

@@ -1,6 +1,12 @@
 @extends('layouts.dashboardmaster')
 
+@section('title')
+    Management
+@endsection
+
 @section('content')
+
+<x-breadcum onlineNews="Role Show Page"></x-breadcum>
 
 <div class="row">
     <div class="col-lg-12">

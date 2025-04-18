@@ -1,6 +1,12 @@
  @extends('layouts.dashboardmaster')
 
+ @section('title')
+    Setting's
+@endsection
+
 @section('content')
+
+<x-breadcum onlineNews="Profile Update Page"></x-breadcum>
 
 <div class="row">
     <div class="col-lg-5" style="margin-left: 5%">

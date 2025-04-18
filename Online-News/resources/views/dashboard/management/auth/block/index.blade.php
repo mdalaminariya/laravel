@@ -1,6 +1,12 @@
 @extends('layouts.dashboardmaster')
 
+@section('title')
+    Management
+@endsection
+
 @section('content')
+
+<x-breadcum onlineNews="Block Page"></x-breadcum>
 
 <div class="row">
     <div class="col-lg-6">
@@ -16,7 +22,7 @@
                                 <th>Name</th>
                                 <th>Role</th>
                                 @if (Auth::user()->role == 'admin')
-                                <th>Staus</th>
+                                <th>Block</th>
                                 <th>Action</th>
                                 @endif
                             </tr>
@@ -35,13 +41,12 @@
                                     @csrf
                                     <div class="form-check form-switch" style="font-size:large">
                                         <input onchange="document.querySelector('#Online_News{{ $user->id }}').submit()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{
-                                            $user->role == $user->role ? 'checked' : ''
+                                            $user->block == $user->block ? 'checked' : ''
                                         }}>
                                       </div>
                                 </form>
                             </td>
                             <td>
-                                <a class="btn btn-info sm" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a class="btn btn-danger sm" href="#"><i class="fa-solid fa-trash-can"></i></a>
                             </td>
                             @endif

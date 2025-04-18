@@ -1,7 +1,12 @@
 @extends('layouts.dashboardmaster')
 
+@section('title')
+    Management
+@endsection
 
 @section('content')
+
+<x-breadcum onlineNews="Registration Page"></x-breadcum>
 
 <div class="row">
     <div class="col-lg-6">

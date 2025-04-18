@@ -7,7 +7,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard | Dashtrap - Responsive Bootstrap 5 Admin Dashboard</title>
+    <title>@yield('title') | Online News</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Myra Studio" name="author" />
@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- tosify --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    {{-- tinymc --}}
+    <script src="https://cdn.tiny.cloud/1/gvutniiga0u1baa7e7gwd4le0jp15aespjrksn03oekp7zre/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 
 <body>
@@ -109,6 +111,27 @@
                         </div>
                     </li>
                     @endif
+                    <li class="menu-item">
+                        <a href="#menuBlog" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                            <span class="menu-icon"><i class="bx bx-file"></i></span>
+                            <span class="menu-text"> Blog Page </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="menuBlog">
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a class='menu-link' href={{ route('blog.index') }}>
+                                        <span class="menu-text">Show Blog's</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class='menu-link' href={{ route('blog.create') }}>
+                                        <span class="menu-text">Create Blog's</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
                     <li class="menu-item">
                         <a class='menu-link waves-effect waves-light' href={{ route('profile.setting') }}>
@@ -396,23 +419,6 @@
                 <!-- Start Content-->
                 <div class="container-fluid">
 
-                    <!-- start page title -->
-                    <div class="py-3 py-lg-4">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h4 class="page-title mb-0">Dashboard</h4>
-                            </div>
-                            <div class="col-lg-6">
-                               <div class="d-none d-lg-block">
-                                <ol class="breadcrumb m-0 float-end">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashtrap</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
-                                </ol>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end page title -->
 
                     @yield('content')
 

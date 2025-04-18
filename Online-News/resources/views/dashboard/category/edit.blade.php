@@ -1,6 +1,12 @@
 @extends('layouts.dashboardmaster')
 
+@section('title')
+    Category
+@endsection
+
 @section('content')
+<x-breadcum onlineNews="Category Edit Page"></x-breadcum>
+
     <div class="row">
         <div class="col-lg-112">
             <div class="card">

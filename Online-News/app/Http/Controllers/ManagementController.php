@@ -81,7 +81,7 @@ class ManagementController extends Controller
     public function user_gread_down($id){
         $user = User::where('id',$id)->first();
         User::find($user->id)->update([
-            'block' => true,
+            'block' => 1,
             'updated_at' => now()
         ]);
         Session::flash('success','Block User Successfully..!');
@@ -94,17 +94,12 @@ class ManagementController extends Controller
         return view('dashboard.management.auth.block.index',compact('users'));
     }
     public function unblock_user($id){
-        $user = User::where('id',$id)->first();
-        User::find($user->id)->update([
-            'block' => false,
-            'updated_at' => now()
-        ]);
-        Session::flash('success','UnBlock User Successfully..!');
-        return back();
+        $user = User::where('id',$id)->where('block',true)->first();
+        if($user->block == 1){
+            User::find($user->id)->update([
+                'block' => 0,
+                'updated_at' => now(),
+            ]);
     }
-    public function auto_delete(){
-        $deleted = User::where('block', true)->where('updated_at', '<=', Carbon::now()->subDays(1))->delete();
-
-        $this->info("$deleted blocked users deleted.");
-    }
+}
 }

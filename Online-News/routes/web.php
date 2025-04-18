@@ -1,16 +1,25 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\Frontend\FrontController;
+use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 
-Route::get('/',[FrontendController::class,'index'])->name('root');
+//Frontend
+Route::get('/',[FrontendHomeController::class,'index'])->name('frontend');
+Route::get('/category/{slug}',[FrontController::class,'Front_Page'])->name('frontend.Category');
+Route::get('/blogs',[FrontendBlogController::class,'index'])->name('frontend.blogs');
+Route::get('/blog/single/{slug}',[FrontendBlogController::class,'single'])->name('frontend.blog.single');
+
 //dashboard
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix(env('HOST_NAME'))->middleware(['rolecheck'])->group(function(){
     //management
@@ -44,3 +53,8 @@ Route::get('/Category/edit/{id}',[CategoryController::class,'edit'])->name('cate
 Route::post('/Category/update/{slug}',[CategoryController::class,'update'])->name('category.update');
 Route::get('/Category/delete/{slug}',[CategoryController::class,'delete'])->name('category.delete');
 Route::post('/Category/status/{slug}',[CategoryController::class,'status'])->name('category.status');
+
+//blog
+Route::resource('blog',BlogController::class);
+Route::post('blog/status/{slug}',[BlogController::class,'status'])->name('blog.status');
+Route::get('blog/delete/{slug}',[BlogController::class,'destroy'])->name('blog.destroy');
