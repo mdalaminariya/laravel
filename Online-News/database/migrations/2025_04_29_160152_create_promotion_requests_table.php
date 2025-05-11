@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role',['admin','manager','blogger','user','author'])->default('user')->after('name');
+        Schema::create('promotion_requests', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->string('message');
+            $table->string('status')->default('deactive');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        Schema::dropIfExists('promotion_requests');
     }
 };

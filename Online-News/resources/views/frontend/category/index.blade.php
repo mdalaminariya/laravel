@@ -28,13 +28,13 @@
                  @forelse ($blogs as $blog)
                     <div class="post-list post-list-style2">
                         <div class="post-list-image">
-                            <a href="post-single.html">
+                            <a href="{{ route('frontend.blog.single',$blogs->slug) }}">
                                 <img src="{{ asset('upload/blog') }}/{{ $blog->thumbnail }}" alt="" style="width: 20rem; height:18rem; background: none;">
                             </a>
                         </div>
                         <div class="post-list-content" style="text-align: center">
                             <h3 class="entry-title">
-                                <a href="post-single.html">{{ $blog->title }}</a>
+                                <a href="{{ route('frontend.blog.single',$blogs->slug) }}">{{ $blog->title }}</a>
                             </h3>
                             <ul class="entry-meta">
                                 @if ($blog->one_user->image == 'user.png')

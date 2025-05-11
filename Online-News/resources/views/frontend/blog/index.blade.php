@@ -28,19 +28,19 @@
                  @forelse ($blog as $blogs)
                     <div class="post-list post-list-style2">
                         <div class="post-list-image d-flex justify-content-center">
-                            <a href="post-single.html">
+                            <a href="{{ route('frontend.blog.single',$blogs->slug) }}">
                                 <img src="{{ asset('upload/blog') }}/{{ $blogs->thumbnail }}" alt="" style="width: 20rem; height:18rem; background: none;">
                             </a>
                         </div>
                         <div class="post-list-content" style="text-align: center">
                             <h3 class="entry-title">
-                                <a href="post-single.html">{{ $blogs->title }}</a>
+                                <a href="{{ route('frontend.blog.single',$blogs->slug) }}">{{ $blogs->title }}</a>
                             </h3>
                             <ul class="entry-meta">
                                 @if ($blogs->one_user->image == 'user.png')
                                     <li class="post-author-img"><img src="{{ Avatar::create($blogs->one_user->name)->toBase64() }}" alt=""></li>
                                 @else
-                                <li class="post-author-img"><img src="{{ asset('upload/profile') }}/{{ auth()->user()->image }}" alt=""></li>
+                                <li><img src="{{ asset('upload/profile') }}/{{ auth()->user()->image }}" alt=""></li>
                                 @endif
                                 <li class="post-author"> <a href="author.html">{{ $blogs->one_user->name }}</a></li>
                                 <li class="entry-cat"> <a href="blog-layout-1.html" class="category-style-1 "> <span class="line"></span> {{ $blogs->one_user->role }}</a></li>

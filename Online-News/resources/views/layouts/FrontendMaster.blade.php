@@ -9,20 +9,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- favicon -->
-    <link rel="icon" sizes="16x16" href="{{ asset('frontend/') }}/assets/img/favicon.png">
+    <link rel="icon" sizes="16x16" href="{{ asset('frontend') }}/assets/img/favicon.png">
 
+    {{-- tostify --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- Title -->Stay Connected
     <title> Oredoo - Personal Blog HTML Template </title>
 
     <!-- CSS Plugins -->
-    <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/line-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/line-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/fontawesome.css">
 
     <!-- main style -->
-    <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/style.css">
-    <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/custom.css">
+    {{-- fontAwsome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -38,8 +42,8 @@
                 <!--logo-->
                 <div class="logo">
                     <a href="index.html">
-                        <img src="{{ asset('frontend/') }}/assets/img/logo/logo-dark.png" alt="" class="logo-dark">
-                        <img src="{{ asset('frontend/') }}/assets/img/logo/logo-white.png" alt="" class="logo-white">
+                        <img src="{{ asset('frontend') }}/assets/img/logo/logo-dark.png" alt="" class="logo-dark">
+                        <img src="{{ asset('frontend') }}/assets/img/logo/logo-white.png" alt="" class="logo-white">
                     </a>
                 </div>
                 <div class="header-navbar">
@@ -60,7 +64,7 @@
                                     <a class="nav-link" href="about.html"> About </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html"> Contact </a>
+                                    <a class="nav-link {{ Route::currentRouteName() == 'contact.index' ? 'active' : '' }}" href="{{ route('contact.index') }}"> Contact </a>
                                 </li>
                             </ul>
                         </div>
@@ -87,7 +91,7 @@
                     </div>
                     <!--button-subscribe-->
                     <div class="botton-sub">
-                        <a href="signup.html" class="btn-subscribe">Sign Up</a>
+                        <a href="{{ route('auth.singup') }}" class="btn-subscribe">Sign Up</a>
                     </div>
                     <!--navbar-toggler-->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
@@ -199,22 +203,25 @@
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{ asset('frontend/') }}/assets/js/jquery.min.js"></script>
-    <script src="{{ asset('frontend/') }}/assets/js/popper.min.js"></script>
-    <script src="{{ asset('frontend/') }}/assets/js/bootstrap.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/jquery.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/popper.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/bootstrap.min.js"></script>
 
 
     <!-- JS Plugins  -->
-    <script src="{{ asset('frontend/') }}/assets/js/theia-sticky-sidebar.js"></script>
-    <script src="{{ asset('frontend/') }}/assets/js/ajax-contact.js"></script>
-    <script src="{{ asset('frontend/') }}/assets/js/owl.carousel.min.js"></script>
-    <script src="{{ asset('frontend/') }}/assets/js/switch.js"></script>
-    <script src="{{ asset('frontend/') }}/assets/js/jquery.marquee.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/theia-sticky-sidebar.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/ajax-contact.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/switch.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/jquery.marquee.js"></script>
 
 
     <!-- JS main  -->
-    <script src="{{ asset('frontend/') }}/assets/js/main.js"></script>
-
+    <script src="{{ asset('frontend') }}/assets/js/main.js"></script>
+    {{-- tostify --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    @yield('script')
+    {!! NoCaptcha::renderJs() !!}
 
 </body>
 </html>

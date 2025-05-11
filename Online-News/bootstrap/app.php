@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AccessMiddleware;
 use App\Http\Middleware\RoleCheckMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'rolecheck' => RoleCheckMiddleware::class
+            'rolecheck' => RoleCheckMiddleware::class,
+            'access' => AccessMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

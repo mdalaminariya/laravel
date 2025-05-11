@@ -110,28 +110,47 @@
                             </ul>
                         </div>
                     </li>
-                    @endif
+
                     <li class="menu-item">
-                        <a href="#menuBlog" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                        <a href="#UsersRequest" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
-                            <span class="menu-text"> Blog Page </span>
+                            <span class="menu-text"> User's Request </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse" id="menuBlog">
+                        <div class="collapse" id="UsersRequest">
                             <ul class="sub-menu">
                                 <li class="menu-item">
-                                    <a class='menu-link' href={{ route('blog.index') }}>
-                                        <span class="menu-text">Show Blog's</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href={{ route('blog.create') }}>
-                                        <span class="menu-text">Create Blog's</span>
+                                    <a class='menu-link' href="{{ route('promotion.request.show') }}">
+                                        <span class="menu-text">Show Request</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
+                    @endif
+                   @if (Auth::user()->role == 'admin' || Auth::user()->role == 'manager' || Auth::user()->role == 'blogger')
+                     <li class="menu-item">
+                         <a href="#menuBlog" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                             <span class="menu-icon"><i class="bx bx-file"></i></span>
+                             <span class="menu-text"> Blog Page </span>
+                             <span class="menu-arrow"></span>
+                         </a>
+                         <div class="collapse" id="menuBlog">
+                             <ul class="sub-menu">
+                                 <li class="menu-item">
+                                     <a class='menu-link' href={{ route('blog.index') }}>
+                                         <span class="menu-text">Show Blog's</span>
+                                     </a>
+                                 </li>
+                                 <li class="menu-item">
+                                     <a class='menu-link' href={{ route('blog.create') }}>
+                                         <span class="menu-text">Create Blog's</span>
+                                     </a>
+                                 </li>
+                             </ul>
+                         </div>
+                     </li>
+                   @endif
 
                     <li class="menu-item">
                         <a class='menu-link waves-effect waves-light' href={{ route('profile.setting') }}>
@@ -362,8 +381,8 @@
 
                         <li class="dropdown">
                             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                @if (auth()->user()->image == 'user.png')
-                                <img src="{{ asset('upload/default') }}/{{ auth()->user()->image }}" alt="user-image" class="rounded-circle">
+                                @if (auth()->user()->attempt_role == 'third_party')
+                                <img style="width:29px;height: 26px;" src="{{ auth()->user()->image }}" alt="user-image" class="rounded-circle">
                                 @else
                                <img src="{{ asset('upload/profile') }}/{{ auth()->user()->image  }}" alt="user-image" class="rounded-circle">
                                 @endif
@@ -421,6 +440,7 @@
 
 
                     @yield('content')
+                    @yield('script')
 
                 </div> <!-- container -->
 

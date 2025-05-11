@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role',['admin','manager','blogger','user','author'])->default('user')->after('name');
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('subject');
+            $table->string('message');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        Schema::dropIfExists('contacts');
     }
 };

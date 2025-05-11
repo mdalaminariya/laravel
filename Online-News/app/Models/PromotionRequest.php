@@ -4,18 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 
-class BlogComment extends Model
+class PromotionRequest extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
     protected $guarded = [''];
 
-    public function oneUser(){
+    public function oneuser(){
         return $this->hasOne(User::class,'id','user_id');
-    }
-    public function replies(){
-        return $this->hasMany(BlogComment::class,'parent_id','id');
     }
 }

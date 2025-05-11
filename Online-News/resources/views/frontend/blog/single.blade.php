@@ -17,7 +17,7 @@
                                 <h2> {{ $blog->title }}</h2>
                                 <ul class="entry-meta">
                                    @if ($blog->one_user->image == 'user.png')
-                                     <li class="post-author-img"><img src="{{ Avatar::create($blog->one_user->name)->toBase64() }}" alt=""></li>
+                                     <li class="post-author-img"><img src="{{ Avatar::create($blog->one_user->name)->toBase64();}}" alt=""></li>
                                    @else
                                    <li class="post-author-img"><img src="{{ asset('upload/profile') }}/{{ auth()->user()->image }}" alt=""></li>
                                    @endif
@@ -145,67 +145,85 @@
                             @auth
                                 <div class="post-single-comments">
                                     <!--Comments-->
-                                    <h4 >3 Comments</h4>
+                                    <h4 >{{ $comments->count() }} Comments</h4>
                                     <ul class="comments">
                                         <!--comment1-->
-                                        <li class="comment-item pt-0">
-                                            <img src="{{ asset('frontend') }}/assets/img/other/user1.jpg" alt="">
-                                            <div class="content">
-                                                <div class="meta">
-                                                    <ul class="list-inline">
-                                                        <li><a href="#">Nirmaine Nicole</a> </li>
-                                                        <li class="slash"></li>
-                                                        <li>3 Months Ago</li>
-                                                    </ul>
+                                        @foreach ($comments as $comment)
+                                            <li class="comment-item pt-0">
+                                                @if ($comment->oneUser->image == 'user.png')
+                                                    <img src="{{ Avatar::create($comment->oneUser->name)->toBase64() }}" alt="">
+                                                @else
+                                                    <img src="{{ asset('upload/profile') }}/{{ $comment->oneUser->image }}" alt="">
+                                                @endif
+                                                <div class="content">
+                                                    <div class="meta">
+                                                        <ul class="list-inline">
+                                                            <li><a href="#">{{ $comment->name }}</a> </li>
+                                                            <li class="slash"></li>
+                                                            <li>{{ Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</li>
+                                                        </ul>
+                                                    </div>
+                                                    <p>{{ $comment->comment }}</p>
+                                                    <a href="#commentReply" onclick="myFun({{ $comment->id }})" class="btn-reply OnlineNews"><i style="margin-top: -.5px" class="las la-reply mb-3"></i> Reply</a>
                                                 </div>
-                                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus at doloremque adipisci eum placeat
-                                                    quod non fugiat aliquid sit similique!
-                                                </p>
-                                                <a href="#" class="btn-reply"><i class="las la-reply"></i> Reply</a>
-                                            </div>
+                                            </li>
 
-                                        </li>
-                                        <!--comment2-->
-                                        <li class="comment-item">
-                                            <img src="{{ asset('frontend') }}/assets/img/other/use2.jpg" alt="">
-                                            <div class="content">
-                                                <div class="meta">
-                                                    <ul class="list-inline">
-                                                        <li><a href="#">adam smith</a> </li>
-                                                        <li class="slash"></li>
-                                                        <li>3 Months Ago</li>
-                                                    </ul>
+                                            @foreach ($comment->replies as $reply)
+                                            <li class="comment-item pl-5">
+                                                @if ($reply->oneUser->image == 'user.png')
+                                                    <img src="{{ Avatar::create($reply->oneUser->name)->toBase64() }}" alt="">
+                                                @else
+                                                    <img src="{{ asset('upload/profile') }}/{{ $reply->oneUser->image }}" alt="">
+                                                @endif
+                                                <div class="content">
+                                                    <div class="meta">
+                                                        <ul class="list-inline">
+                                                            <li><a href="#">{{ $reply->name }}</a> </li>
+                                                            <li class="slash"></li>
+                                                            <li>{{ Carbon\Carbon::parse($reply->created_at)->diffForHumans() }}</li>
+                                                        </ul>
+                                                    </div>
+                                                    <p>{{ $reply->comment }}</p>
+                                                    <a href="#commentReply" onclick="myFun({{ $reply->id }})" class="btn-reply OnlineNews"><i style="margin-top: -.5px" class="las la-reply mb-3"></i> Reply</a>
                                                 </div>
-                                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus at doloremque adipisci eum placeat
-                                                    quod non fugiat aliquid sit similique!
-                                                </p>
-                                                <a href="#" class="btn-reply"><i class="las la-reply"></i> Reply</a>
-                                            </div>
-                                        </li>
-                                           <!--comment3-->
-                                        <li class="comment-item">
-                                            <img src="{{ asset('frontend') }}/assets/img/other/user3.jpg" alt="">
-                                            <div class="content">
-                                                <div class="meta">
-                                                    <ul class="list-inline">
-                                                        <li><a href="#">Emma david</a> </li>
-                                                        <li class="slash"></li>
-                                                        <li>3 Months Ago</li>
-                                                    </ul>
-                                                </div>
-                                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus at doloremque adipisci eum placeat
-                                                    quod non fugiat aliquid sit similique!
-                                                </p>
-                                                <a href="#" class="btn-reply"><i class="las la-reply"></i> Reply</a>
-                                            </div>
-                                        </li>
+                                            </li>
+                                            @endforeach
 
+                                            @foreach ($reply->replies as $replies)
+                                            <li class="comment-item pl-5">
+                                                @if ($replies->oneUser->image == 'user.png')
+                                                    <img src="{{ Avatar::create($replies->oneUser->name)->toBase64() }}" alt="">
+                                                @else
+                                                    <img src="{{ asset('upload/profile') }}/{{ $replies->oneUser->image }}" alt="">
+                                                @endif
+                                                <div class="content">
+                                                    <div class="meta">
+                                                        <ul class="list-inline">
+                                                            <li><a href="#">{{ $replies->name }}</a> </li>
+                                                            <li class="slash"></li>
+                                                            <li>{{ Carbon\Carbon::parse($replies->created_at)->diffForHumans() }}</li>
+                                                        </ul>
+                                                    </div>
+                                                    <p>{{ $replies->comment }}</p>
+                                                </div>
+                                            </li>
+                                            @endforeach
+
+                                        @endforeach
                                     </ul>
+                                        <!--pagination-->
+                                            <div class="pagination mt-3 mb-3">
+                                                <div class="container-fluid">
+                                                {{ $comments->links() }}
+                                                </div>
+                                            </div>
+
                                     <!--Leave-comments-->
-                                    <div class="comments-form">
+                                    <div class="comments-form" id="commentReply">
                                         <h4 >Leave a Reply</h4>
                                         <!--form-->
-                                        <form class="form " action="#" method="POST" id="main_contact_form">
+                                        <form class="form " action="{{ route('frontend.blog.comment',$blog->id) }}" method="POST" id="main_contact_form">
+                                            @csrf
                                             <p>Your email adress will not be published ,Requied fileds are marked*.</p>
                                             <div class="alert alert-success contact_msg" style="display: none" role="alert">
                                                 Your message was sent successfully.
@@ -213,25 +231,22 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name*" required="required">
+                                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name*">
+                                                        <input type="text" name="parent_id" id="OnlineNews" hidden>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="email" name="email" id="email" class="form-control" placeholder="Email*" required="required">
+                                                        <input type="email" name="email" id="email" class="form-control" placeholder="Email*">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea name="message" id="message" cols="30" rows="5" class="form-control" placeholder="Message*" required="required"></textarea>
+                                                        <textarea name="comment" id="message" cols="30" rows="5" class="form-control" placeholder="Message*"></textarea>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12">
-                                                    <div class="mb-20">
-                                                        <input name="name" type="checkbox" value="1" required="required">
-                                                        <label for="name"><span>save my name , email and website in this browser for the next time I comment.</span></label>
-                                                    </div>
 
                                                     <button type="submit" name="submit" class="btn-custom">
                                                         Send Comment
@@ -248,5 +263,34 @@
             </div>
         </div>
     </section>
+<script>
 
+    let OnlineNews = document.querySelector('#OnlineNews');
+
+  function myFun(id){
+    OnlineNews.value = id;
+
+  }
+
+</script>
 @endsection
+
+@section('script')
+@if (session('success'))
+    <script>
+        Toastify({
+    text: "{{ session('success') }}",
+    duration: 3000,
+    newWindow: true,
+    close: true,
+    gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00C9FF, #92FE9D)",
+    },
+    onClick: function(){} // Callback after click
+    }).showToast();
+    </script>
+@endif
+@endsectio
