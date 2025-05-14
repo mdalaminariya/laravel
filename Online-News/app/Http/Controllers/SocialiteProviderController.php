@@ -25,7 +25,7 @@ class SocialiteProviderController extends Controller
                 'email' => $user->email,
                 'image' => $user->avatar,
                 'password' => bcrypt('The_global_password.@234'),
-                'role' => 'author',
+                'role' => 'user',
                 'attempt_role' => 'third_party',
                 'approve_status' => true,
                 'email_verified_at' => now(),

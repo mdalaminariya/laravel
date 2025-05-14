@@ -19,7 +19,7 @@
                                    @if ($blog->one_user->image == 'user.png')
                                      <li class="post-author-img"><img src="{{ Avatar::create($blog->one_user->name)->toBase64();}}" alt=""></li>
                                    @else
-                                   <li class="post-author-img"><img src="{{ asset('upload/profile') }}/{{ auth()->user()->image }}" alt=""></li>
+                                   <li class="post-author-img"><img src="{{ asset('upload/profile') }}/{{ auth()->user()->image }}" alt="Uploder"></li>
                                    @endif
                                     <li class="post-author"> <a href="author.html">{{ $blog->one_user->name }}</a></li>
                                     <li class="entry-cat"> <a href="blog-layout-1.html" class="category-style-1 "> <span class="line"></span>{{ $blog->one_user->role }}</a></li>
@@ -141,138 +141,141 @@
                             </div>
 
 
-                            <!--post-single-comments-->
-                            @auth
-                                <div class="post-single-comments">
-                                    <!--Comments-->
-                                    <h4 >{{ $comments->count() }} Comments</h4>
-                                    <ul class="comments">
-                                        <!--comment1-->
-                                        @foreach ($comments as $comment)
-                                            <li class="comment-item pt-0">
-                                                @if ($comment->oneUser->image == 'user.png')
-                                                    <img src="{{ Avatar::create($comment->oneUser->name)->toBase64() }}" alt="">
-                                                @else
-                                                    <img src="{{ asset('upload/profile') }}/{{ $comment->oneUser->image }}" alt="">
-                                                @endif
-                                                <div class="content">
-                                                    <div class="meta">
-                                                        <ul class="list-inline">
-                                                            <li><a href="#">{{ $comment->name }}</a> </li>
-                                                            <li class="slash"></li>
-                                                            <li>{{ Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <p>{{ $comment->comment }}</p>
-                                                    <a href="#commentReply" onclick="myFun({{ $comment->id }})" class="btn-reply OnlineNews"><i style="margin-top: -.5px" class="las la-reply mb-3"></i> Reply</a>
-                                                </div>
-                                            </li>
-
-                                            @foreach ($comment->replies as $reply)
-                                            <li class="comment-item pl-5">
-                                                @if ($reply->oneUser->image == 'user.png')
-                                                    <img src="{{ Avatar::create($reply->oneUser->name)->toBase64() }}" alt="">
-                                                @else
-                                                    <img src="{{ asset('upload/profile') }}/{{ $reply->oneUser->image }}" alt="">
-                                                @endif
-                                                <div class="content">
-                                                    <div class="meta">
-                                                        <ul class="list-inline">
-                                                            <li><a href="#">{{ $reply->name }}</a> </li>
-                                                            <li class="slash"></li>
-                                                            <li>{{ Carbon\Carbon::parse($reply->created_at)->diffForHumans() }}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <p>{{ $reply->comment }}</p>
-                                                    <a href="#commentReply" onclick="myFun({{ $reply->id }})" class="btn-reply OnlineNews"><i style="margin-top: -.5px" class="las la-reply mb-3"></i> Reply</a>
-                                                </div>
-                                            </li>
-                                            @endforeach
-
-                                            @foreach ($reply->replies as $replies)
-                                            <li class="comment-item pl-5">
-                                                @if ($replies->oneUser->image == 'user.png')
-                                                    <img src="{{ Avatar::create($replies->oneUser->name)->toBase64() }}" alt="">
-                                                @else
-                                                    <img src="{{ asset('upload/profile') }}/{{ $replies->oneUser->image }}" alt="">
-                                                @endif
-                                                <div class="content">
-                                                    <div class="meta">
-                                                        <ul class="list-inline">
-                                                            <li><a href="#">{{ $replies->name }}</a> </li>
-                                                            <li class="slash"></li>
-                                                            <li>{{ Carbon\Carbon::parse($replies->created_at)->diffForHumans() }}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <p>{{ $replies->comment }}</p>
-                                                </div>
-                                            </li>
-                                            @endforeach
-
-                                        @endforeach
-                                    </ul>
-                                        <!--pagination-->
-                                            <div class="pagination mt-3 mb-3">
-                                                <div class="container-fluid">
-                                                {{ $comments->links() }}
-                                                </div>
-                                            </div>
-
-                                    <!--Leave-comments-->
-                                    <div class="comments-form" id="commentReply">
-                                        <h4 >Leave a Reply</h4>
-                                        <!--form-->
-                                        <form class="form " action="{{ route('frontend.blog.comment',$blog->id) }}" method="POST" id="main_contact_form">
-                                            @csrf
-                                            <p>Your email adress will not be published ,Requied fileds are marked*.</p>
-                                            <div class="alert alert-success contact_msg" style="display: none" role="alert">
-                                                Your message was sent successfully.
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name*">
-                                                        <input type="text" name="parent_id" id="OnlineNews" hidden>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="email" name="email" id="email" class="form-control" placeholder="Email*">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <textarea name="comment" id="message" cols="30" rows="5" class="form-control" placeholder="Message*"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-
-                                                    <button type="submit" name="submit" class="btn-custom">
-                                                        Send Comment
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!--/-->
-                                    </div>
-                                </div>
-                            @endauth
+<!-- Post Single Comments -->
+@auth
+    <div class="post-single-comments">
+        <!-- Comments -->
+        <h4>{{ $comments->count() }} Comments</h4>
+        <ul class="comments">
+            <!-- Loop through each comment -->
+            @foreach ($comments as $comment)
+                <li class="comment-item pt-0">
+                    <!-- User Avatar -->
+                    @if ($comment->oneUser->image == 'user.png')
+                        <img src="{{ Avatar::create($comment->oneUser->name)->toBase64() }}" alt="">
+                    @else
+                        <img src="{{ asset('upload/profile') }}/{{ $comment->oneUser->image }}" alt="">
+                    @endif
+                    <div class="content">
+                        <!-- Meta Info -->
+                        <div class="meta">
+                            <ul class="list-inline">
+                                <li><a href="#">{{ $comment->name }}</a></li>
+                                <li class="slash"></li>
+                                <li>{{ Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</li>
+                            </ul>
                         </div>
-                </div>
+                        <p>{{ $comment->comment }}</p>
+                        <a href="#commentReply" onclick="myFun({{ $comment->id }})" class="btn-reply OnlineNews">
+                            <i style="margin-top: -.5px" class="las la-reply mb-3"></i> Reply
+                        </a>
+                    </div>
+                </li>
+
+                <!-- Loop through replies of each comment -->
+                @foreach ($comment->replies as $reply)
+                    <li class="comment-item pl-5">
+                        <!-- User Avatar for reply -->
+                        @if ($reply->oneUser->image == 'user.png')
+                            <img src="{{ Avatar::create($reply->oneUser->name)->toBase64() }}" alt="">
+                        @else
+                            <img src="{{ asset('upload/profile') }}/{{ $reply->oneUser->image }}" alt="">
+                        @endif
+                        <div class="content">
+                            <!-- Meta Info for reply -->
+                            <div class="meta">
+                                <ul class="list-inline">
+                                    <li><a href="#">{{ $reply->name }}</a></li>
+                                    <li class="slash"></li>
+                                    <li>{{ Carbon\Carbon::parse($reply->created_at)->diffForHumans() }}</li>
+                                </ul>
+                            </div>
+                            <p>{{ $reply->comment }}</p>
+                            <a href="#commentReply" onclick="myFun({{ $reply->id }})" class="btn-reply OnlineNews">
+                                <i style="margin-top: -.5px" class="las la-reply mb-3"></i> Reply
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Nested replies (Replies to replies) -->
+                    @foreach ($reply->replies as $nestedReply)
+                        <li class="comment-item pl-5">
+                            <!-- User Avatar for nested reply -->
+                            @if ($nestedReply->oneUser->image == 'user.png')
+                                <img src="{{ Avatar::create($nestedReply->oneUser->name)->toBase64() }}" alt="">
+                            @else
+                                <img src="{{ asset('upload/profile') }}/{{ $nestedReply->oneUser->image }}" alt="">
+                            @endif
+                            <div class="content">
+                                <!-- Meta Info for nested reply -->
+                                <div class="meta">
+                                    <ul class="list-inline">
+                                        <li><a href="#">{{ $nestedReply->name }}</a></li>
+                                        <li class="slash"></li>
+                                        <li>{{ Carbon\Carbon::parse($nestedReply->created_at)->diffForHumans() }}</li>
+                                    </ul>
+                                </div>
+                                <p>{{ $nestedReply->comment }}</p>
+                            </div>
+                        </li>
+                    @endforeach
+                @endforeach
+            @endforeach
+        </ul>
+
+        <!-- Pagination -->
+        <div class="pagination mt-3 mb-3">
+            <div class="container-fluid">
+                {{ $comments->links() }}
             </div>
         </div>
-    </section>
-<script>
 
+        <!-- Leave a Comment -->
+        <div class="comments-form" id="commentReply">
+            <h4>Leave a Reply</h4>
+            <form class="form" action="{{ route('frontend.blog.comment', $blog->id) }}" method="POST" id="main_contact_form">
+                @csrf
+                <p>Your email address will not be published. Required fields are marked*.</p>
+                <div class="alert alert-success contact_msg" style="display: none" role="alert">
+                    Your message was sent successfully.
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Name*">
+                            <input type="text" name="parent_id" id="OnlineNews" hidden>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email*">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea name="comment" id="message" cols="30" rows="5" class="form-control" placeholder="Message*"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <button type="submit" name="submit" class="btn-custom">
+                            Send Comment
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+@endauth
+
+<script>
+    // Function to handle the reply form
     let OnlineNews = document.querySelector('#OnlineNews');
 
-  function myFun(id){
-    OnlineNews.value = id;
-
-  }
-
+    function myFun(id) {
+        OnlineNews.value = id;
+    }
 </script>
+
 @endsection
 
 @section('script')

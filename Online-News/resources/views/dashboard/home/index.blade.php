@@ -10,7 +10,7 @@
 <div class="row text-center">
    <h4><strong>Welcome {{auth()->user()->name}}</strong></h4>
 </div>
-
+{{-- user request --}}
     @if (Auth::user()->role == 'user')
             @if (!$request)
                 <div class="row">
@@ -25,7 +25,7 @@
                                 <div class="col-lg-8">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="header-title mb-3">Request form</h4>
+                                            <h4 class="header-title mb-3">Bloger Request form</h4>
 
                                             <form role="form" action="{{ route('promotion.request',Auth::user()->id) }}" method="POST">
                                                 @csrf
@@ -52,6 +52,8 @@
                 </div>
             @endif
     @endif
+
+
 
 @endsection
 @section('script')

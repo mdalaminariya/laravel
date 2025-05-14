@@ -16,4 +16,7 @@ class Blog extends Model
     public function one_user(){
         return $this->hasOne(User::class,'id','user_id');
     }
+    public function blog(){
+        return $this->hasOne(Blog::class,'id','blog_id');
+    }
 }

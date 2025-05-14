@@ -128,21 +128,23 @@
 
                                 <ul class="widget-popular-posts">
                                     <!--post1-->
-                                    <li class="small-post">
-                                        <div class="small-post-image">
-                                            <a href="post-single.html">
-                                                <img src="{{ asset('frontend/') }}/assets/img/blog/1.jpg" alt="">
-                                                <small class="nb">1</small>
-                                            </a>
-                                        </div>
-                                        <div class="small-post-content">
-                                            <p>
-                                                <a href="post-single.html">Everything is designed. Few things are
-                                                    designed well.</a>
-                                            </p>
-                                            <small> <span class="slash"></span>3 mounth ago</small>
-                                        </div>
-                                    </li>
+
+                                     @foreach ($popularPosts as $post)
+                                        <li class="small-post">
+                                            <div class="small-post-image">
+                                                <a href="{{ route('posts.show', $post->slug) }}"> <!-- FIXED -->
+                                                    <img src="{{ asset('upload/blog/' . $post->thumbnail) }}" alt="">
+                                                    <small class="nb"><span>{{ $post->views }} views</span></small>
+                                                </a>
+                                            </div>
+                                            <div class="small-post-content">
+                                                <p>
+                                                    <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a> <!-- FIXED -->
+                                                </p>
+                                                {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
+                                            </div>
+                                        </li>
+                                    @endforeach
 
                             <!--newslatter-->
                             <div class="widget widget-newsletter">

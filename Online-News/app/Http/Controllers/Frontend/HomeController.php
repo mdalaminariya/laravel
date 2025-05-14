@@ -12,10 +12,11 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function index(){
+        $popularPosts = Blog::orderBy('views', 'desc')->take(5)->get();
         $features = Blog::where('status','active')->latest()->take(3)->get();
         $blogs = Blog::latest()->take(5)->paginate(5);
         $categories = Category::where('status','active')->latest()->get();
-        return view('frontend.home.index',compact('categories','features' , 'blogs'));
+        return view('frontend.home.index',compact('categories','features' , 'blogs','popularPosts'));
     }
 
 }

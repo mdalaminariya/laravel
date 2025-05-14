@@ -6,10 +6,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-8 m-auto">
-                <div class="d-flex justify-content-between" style="font-size: 1.5rem">
-                    <a href="/auth/google/redirect" class="btn-light text-success" style="border: 1px solid #ffffff; border-radius: 50%; border-width: 1.5rem; padding: 15px 25px; text-align: center; text-decoration-color: green;"><i class="fa-brands fa-google"></i></a>
-                    <a href="/auth/facebook/redirect" class="btn-primary" style="border: 1px solid #ffffff; border-radius: 50%; border-width: 1.5rem; padding: 15px 25px; text-align: center;"><i class="fa-brands fa-facebook-f"></i></a>
-                </div>
                 <div class="login-content">
                     <h4>Sign up</h4>
                     <!--form-->
@@ -42,6 +38,10 @@
 
                         <div class="form-group">
                             <button type="submit" class="btn-custom">Sign Up</button>
+                        </div>
+                        <div class="mb-3" style="text-align: center; text-decoration-color: rgb(12, 12, 12); margin-top: 20px;">
+                            <a href="/auth/google/redirect"  style="color: green"><i class="fa-brands fa-google te"></i></a>
+                            <a href="/auth/google/redirect">Loging With Google</i></a>
                         </div>
                         <p class="form-group text-center">Already have an account? <a href="{{ route('auth.login') }}" class="btn-link">Login</a> </p>
                     </form>

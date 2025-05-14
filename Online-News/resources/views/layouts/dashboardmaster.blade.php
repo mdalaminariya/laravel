@@ -39,7 +39,7 @@
             <!-- Brand Logo -->
             <div class="logo-box">
                 <!-- Brand Logo Light -->
-                <a class='logo-light' href='index.html'>
+                <a class='logo-light' href='{{ route('frontend') }}'>
                     <img src="{{ asset('Dashboard') }}/assets/images/logo-light.png" alt="logo" class="logo-lg" height="28">
                     <img src="{{ asset('Dashboard') }}/assets/images/logo-sm.png" alt="small logo" class="logo-sm" height="28">
                 </a>
@@ -454,9 +454,9 @@
                             <div><script>document.write(new Date().getFullYear())</script> © Dashtrap</div>
                         </div>
                         <div class="col-md-6">
-                            <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end">
+                            {{-- <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end">
                                 <p class="mb-0">Design & Develop by <a href="https://myrathemes.com/" target="_blank">MyraStudio</a> </p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
