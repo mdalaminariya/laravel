@@ -33,7 +33,7 @@
                         </div>
 
                          <div class="form-group mb-2">
-                                {!! NoCaptcha::display() !!}
+                            {!! NoCaptcha::display() !!}
                             </div>
 
                         <div class="form-group">

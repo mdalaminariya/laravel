@@ -15,8 +15,10 @@ class AuthenticationController extends Controller
     }
     public function singup_post(Request $request){
         $request->validate([
-            '*' => 'required',
-             'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
         User::create([
             'name' => $request->name,
@@ -24,6 +26,7 @@ class AuthenticationController extends Controller
             'password' => Hash::make($request->password),
             'created_at' => now(),
         ]);
+
         return redirect()->route('auth.login')->with('success','Account Created Successfully.!');
     }
     public function login(){
