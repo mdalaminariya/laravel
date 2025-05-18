@@ -210,7 +210,7 @@
 
     <!-- JS Plugins  -->
     <script src="{{ asset('frontend') }}/assets/js/theia-sticky-sidebar.js"></script>
-    <script src="{{ asset('frontend') }}/assets/js/ajax-contact.js"></script>
+    {{-- <script src="{{ asset('frontend') }}/assets/js/ajax-contact.js"></script> --}}
     <script src="{{ asset('frontend') }}/assets/js/owl.carousel.min.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/switch.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/jquery.marquee.js"></script>
@@ -221,7 +221,7 @@
     {{-- tostify --}}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     @yield('script')
-    {!! NoCaptcha::renderJs() !!}
+     {!! NoCaptcha::renderJs() !!}
 
 </body>
 </html>

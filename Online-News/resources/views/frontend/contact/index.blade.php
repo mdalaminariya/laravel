@@ -65,6 +65,9 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div class="form-group mb-2">
+                                {!! NoCaptcha::display() !!}
+                            </div>
                             <button type="submit" name="submit" class="btn-custom">Send Message</button>
                         </form>
                     </div>
